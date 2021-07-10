@@ -1,0 +1,205 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "logicAppName": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80,
+      "metadata": {
+        "description": "Name of the Logic App."
+      }
+    },
+    "logicAppLocation": {
+      "type": "string",
+      "defaultValue": "[resourceGroup().location]",
+      "allowedValues": [
+        "[resourceGroup().location]",
+        "eastasia",
+        "southeastasia",
+        "centralus",
+        "eastus",
+        "eastus2",
+        "westus",
+        "northcentralus",
+        "southcentralus",
+        "northeurope",
+        "westeurope",
+        "japanwest",
+        "japaneast",
+        "brazilsouth",
+        "australiaeast",
+        "australiasoutheast",
+        "southindia",
+        "centralindia",
+        "westindia",
+        "canadacentral",
+        "canadaeast",
+        "uksouth",
+        "ukwest",
+        "westcentralus",
+        "westus2",
+        "koreacentral",
+        "koreasouth",
+        "francecentral",
+        "francesouth",
+        "uaecentral",
+        "uaenorth",
+        "southafricanorth",
+        "southafricawest",
+        "switzerlandnorth",
+        "switzerlandwest",
+        "germanynorth",
+        "germanywestcentral",
+        "norwayeast",
+        "brazilsoutheast"
+      ],
+      "metadata": {
+        "description": "Location of the Logic App."
+      }
+    }
+  },
+  "variables": {},
+  "resources": [
+    {
+      "name": "[parameters('logicAppName')]",
+      "type": "Microsoft.Logic/workflows",
+      "location": "[parameters('logicAppLocation')]",
+      "tags": {
+        "displayName": "LogicApp"
+      },
+      "apiVersion": "2016-06-01",
+      "properties": {
+        "definition": {
+          "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+          "actions": {
+            "Response": {
+              "type": "Response",
+              "kind": "http",
+              "inputs": {
+                "statusCode": 200,
+                "body": "@body('resourceListAPI')"
+              },
+              "runAfter": {
+                "resourceListAPI": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "resourceListAPI": {
+              "type": "Http",
+              "inputs": {
+                "method": "GET",
+                "uri": "@variables('resourcesListURI')",
+                "queries": {
+                  "$filter": "resourceType eq '@{variables('resourceType')}'",
+                  "api-version": "@variables('apiVersion')"
+                },
+                "authentication": {
+                  "type": "ManagedServiceIdentity"
+                }
+              },
+              "runAfter": {
+                "resourcesListURI": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "resourcesListURI": {
+              "type": "InitializeVariable",
+              "inputs": {
+                "variables": [
+                  {
+                    "name": "resourcesListURI",
+                    "type": "string",
+                    "value": "@{concat('https://management.azure.com/subscriptions/',variables('subscriptionId'),'/resources')}"
+                  }
+                ]
+              },
+              "runAfter": {
+                "apiVersion": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "subscriptionId": {
+              "type": "InitializeVariable",
+              "inputs": {
+                "variables": [
+                  {
+                    "name": "subscriptionId",
+                    "type": "string",
+                    "value": "@{triggerBody()?['subscriptionId']}"
+                  }
+                ]
+              },
+              "runAfter": {}
+            },
+            "apiVersion": {
+              "type": "InitializeVariable",
+              "inputs": {
+                "variables": [
+                  {
+                    "name": "apiVersion",
+                    "type": "string",
+                    "value": "@{triggerBody()?['apiVersion']}"
+                  }
+                ]
+              },
+              "runAfter": {
+                "resourceType": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "resourceType": {
+              "type": "InitializeVariable",
+              "inputs": {
+                "variables": [
+                  {
+                    "name": "resourceType",
+                    "type": "string",
+                    "value": "@{triggerBody()?['resourceType']}"
+                  }
+                ]
+              },
+              "runAfter": {
+                "subscriptionId": [
+                  "Succeeded"
+                ]
+              }
+            }
+          },
+          "parameters": {},
+          "triggers": {
+            "manual": {
+              "type": "Request",
+              "kind": "Http",
+              "inputs": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "subscriptionId": {
+                      "type": "string"
+                    },
+                    "resourceType": {
+                      "type": "string"
+                    },
+                    "apiVersion": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "method": "POST"
+              }
+            }
+          },
+          "contentVersion": "1.0.0.0",
+          "outputs": {}
+        },
+        "parameters": {}
+      }
+    }
+  ],
+  "outputs": {}
+}
