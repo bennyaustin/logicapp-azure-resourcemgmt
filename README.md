@@ -10,3 +10,23 @@ From PowerShell console execute the following commands
 - cd 'bin folder'
 - Connect-AzAccount -Tenant XX-YY-ZZ -Subscription XX-YY-ZZ
 - .\Deploy-AzureResourceGroup.ps1 -ArtifactStagingDirectory . -TemplateFile LogicApp.json -TemplateParametersFile LogicApp.parameters.json
+
+## HTTP Trigger POST payload
+{
+    "schema": {
+        "type": "object",
+        "properties": {
+            "subscriptionId": {
+                "type": "string"
+            },
+            "resourceType": {
+                "type": "string"
+            },
+            "apiVersion": {
+                "type": "string"
+            }
+        }
+    },
+    "method": "POST"
+}
+
