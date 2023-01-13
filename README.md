@@ -38,5 +38,5 @@ For example the payload body will look like this:
    "subscriptionId": "XXX-YYY-ZZZ",
    "resourceType": "Microsoft.Synapse/workspaces/sqlPools",
    "apiVersion": "2021-04-01"
-    }
+ }
 ```
