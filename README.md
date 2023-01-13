@@ -35,8 +35,8 @@ From PowerShell console execute the following commands
 For example the payload body will look like this:
 ```json
  {
-        "subscriptionId": "XXX-YYY-ZZZ",
-        "resourceType": "Microsoft.Synapse/workspaces/sqlPools",
-        "apiVersion": "2021-04-01"
+   "subscriptionId": "XXX-YYY-ZZZ",
+   "resourceType": "Microsoft.Synapse/workspaces/sqlPools",
+   "apiVersion": "2021-04-01"
     }
 ```
