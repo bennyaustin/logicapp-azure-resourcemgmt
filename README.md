@@ -12,6 +12,7 @@ From PowerShell console execute the following commands
 - .\Deploy-AzureResourceGroup.ps1 -ArtifactStagingDirectory . -TemplateFile LogicApp.json -TemplateParametersFile LogicApp.parameters.json
 
 ## HTTP Trigger POST payload
+```json
 {
     "schema": {
         "type": "object",
@@ -29,4 +30,5 @@ From PowerShell console execute the following commands
     },
     "method": "POST"
 }
+```
 
