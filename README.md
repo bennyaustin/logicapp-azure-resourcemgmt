@@ -32,7 +32,7 @@ From PowerShell console execute the following commands
 }
 ```
 
-For example,
+For example the payload body will look like this:
 ```json
  {
         "subscriptionId": "XXX-YYY-ZZZ",
