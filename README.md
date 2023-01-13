@@ -32,3 +32,11 @@ From PowerShell console execute the following commands
 }
 ```
 
+For example,
+```json
+ {
+        "subscriptionId": "XXX-YYY-ZZZ",
+        "resourceType": "Microsoft.Synapse/workspaces/sqlPools",
+        "apiVersion": "2021-04-01"
+    }
+```
