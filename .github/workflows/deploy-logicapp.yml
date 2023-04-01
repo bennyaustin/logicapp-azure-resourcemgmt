@@ -25,6 +25,6 @@ jobs:
         scope: resourcegroup
         resourceGroupName: 'rg-cost-optimisation'
         deploymentName: 'logicapp-azure-resourcemgmt_deployment'
-        template: 'logicapp-azure-resourcemgmt/logicapp-azure-resourcemgmt/LogicApp.json'
-        parameters: 'logicapp-azure-resourcemgmt/logicapp-azure-resourcemgmt/LogicApp.parameters.json'
+        template: 'logicapp-azure-resourcemgmt/filter-resources/LogicApp.json'
+        parameters: 'logicapp-azure-resourcemgmt/filter-resources/LogicApp.parameters.json'
         failOnStdErr: false
