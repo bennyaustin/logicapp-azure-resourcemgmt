@@ -3,7 +3,7 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "logicAppName": {
-      "value": "ba-logicapp01"
+      "value": "ba-logicapp01-azure-resource-management"
     }
   }
 }
