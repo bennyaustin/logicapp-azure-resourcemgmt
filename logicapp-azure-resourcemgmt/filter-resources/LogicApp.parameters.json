@@ -3,7 +3,7 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "logicAppName": {
-      "value": "ba-logicapp02-kn3acb6lw3vr4-filterResources"
+      "value": "ba-logicapp01"
     }
   }
 }

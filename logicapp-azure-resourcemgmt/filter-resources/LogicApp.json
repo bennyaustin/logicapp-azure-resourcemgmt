@@ -59,12 +59,15 @@
       }
     }
   },
-  "variables": {},
+  "variables": {
+    "logicAppUniqueName": "[concat(toLower(parameters('logicAppName')),'-', uniqueString(resourceGroup().id))]"
+  },
   "resources": [
     {
-      "name": "[parameters('logicAppName')]",
+      "name": "[variables('logicAppUniqueName')]",
       "type": "Microsoft.Logic/workflows",
       "location": "[parameters('logicAppLocation')]",
+      "identity": {"type": "SystemAssigned"},
       "tags": {
         "displayName": "LogicApp"
       },
