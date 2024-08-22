@@ -23,7 +23,7 @@ jobs:
       uses: azure/arm-deploy@v1
       with:
         scope: resourcegroup
-        resourceGroupName: 'rg-cost-optimisation'
+        resourceGroupName: 'prg-synapse-dp'
         deploymentName: 'logicapp-azure-resourcemgmt_deployment'
         template: 'logicapp-azure-resourcemgmt/filter-resources/LogicApp.json'
         parameters: 'logicapp-azure-resourcemgmt/filter-resources/LogicApp.parameters.json'
